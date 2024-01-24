@@ -97,48 +97,64 @@ test('a live cell with two or three neighbours lives', () => {
 
 const runNext = (cells) => {
 
+    const isCellAlive = (row, column) => {
+        if (row < 0) return false
+        if (row >= 3) return false
+        if (column < 0) return false
+        if (column >= 3) return false
+        
+        return cells[row][column] === 1
+    }
+
     const countLiveNeighbours = (row, column) => {
         let count = 0
-        if(cells[row - 1][column - 1] === 1) {
+        if(isCellAlive(row - 1,column - 1)) {
             count++
         }
-        if(cells[row - 1][column] === 1) {
+        if(isCellAlive(row - 1, column)) {
             count++
         }
-        if(cells[row - 1][column + 1] === 1) {
+        if(isCellAlive(row - 1,column + 1)) {
             count++
         }
-        if(cells[row][column - 1] === 1) {
+        if(isCellAlive(row,column - 1)) {
             count++
         }
-        if(cells[row][column + 1] === 1) {
+        if(isCellAlive(row,column + 1)) {
             count++
         }
-        if(cells[row + 1][column - 1] === 1) {
+        if(isCellAlive(row + 1,column - 1)) {
             count++
         }
-        if(cells[row + 1][column] === 1) {
+        if(isCellAlive(row + 1,column)) {
             count++
         }
-        if(cells[row + 1][column + 1] === 1) {
+        if(isCellAlive(row + 1,column + 1)) {
             count++
         }
         return count
     }
 
+    const nextCells = [
+        [0,0,0],
+        [0,0,0],
+        [0,0,0]
+    ]
+
     for (let row = 0; row < 3; row++) {
-        for (let column = 0; row < 3; row++) {
+        for (let column = 0; column < 3; column++) {
             const cell = cells[row][column]
             const liveNeighbours = countLiveNeighbours(row, column)
-            if(liveNeighbours = 0) {
-
+            if(cell === 1 && liveNeighbours < 2) {
+                nextCells[row][column] = 0
+            }
+            if (cell === 1 && liveNeighbours === 2) {
+                nextCells[row][column] = 1
             }
         }
     }
 
-    return [
-        [0,0,0],
-        [0,0,0],
-        [0,0,0]
-    ];
+    // https://meet.google.com/iyc-ouqz-bib
+
+    return nextCells
 }
