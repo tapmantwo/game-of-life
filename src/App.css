@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.grid {
+  height: 100vh; /* Set height to full viewport height */
+  width: 100vw;
+  display: flex;
+  flex-direction: column; /* Adjust to column layout for equal sizing */
+}
+
+.row {
+  flex: 1; /* Distribute height equally among rows */
+  display: flex;
+}
+
+.cell {
+  flex: 1; /* Distribute width equally among cells */
+  border: solid 1px black;
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+}
+
+.cell_0 {
+  background-color: white;
+}
+
+.cell_1 {
+  background-color: red;
+}
