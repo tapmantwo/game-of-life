@@ -54,9 +54,14 @@ function Grid({width, height}) {
     setGame(newGrid)
   }
 
+  const reset = () => {
+    setGame(createEmptyGrid(width,height))
+  }
+
   return (
     <>
     <button onClick={next}>Next</button>
+    <button onClick={reset}>Reset</button>
     <div className='grid'>
     {game.map((row, rowIndex) => {
         return (
