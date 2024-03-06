@@ -1,12 +1,13 @@
 const runNext = (cells) => {
 
-    const gridDimension = cells.length;
+    const numberOfRows = cells.length;
+    const numberOfColumns = cells[0].length
 
     const isCellAlive = (row, column) => {
         if (row < 0) return false
-        if (row >= gridDimension) return false
+        if (row >= numberOfRows) return false
         if (column < 0) return false
-        if (column >= gridDimension) return false
+        if (column >= numberOfColumns) return false
         
         return cells[row][column] === 1
     }
@@ -54,13 +55,13 @@ const runNext = (cells) => {
     }
 
     const nextCells = [];
-    for (let i = 0; i < gridDimension; i++) {
-        const row = Array(gridDimension).fill(0, 0, gridDimension)
+    for (let i = 0; i < numberOfRows; i++) {
+        const row = Array(numberOfColumns).fill(0, 0, numberOfColumns)
         nextCells.push(row);
     }
 
-    for (let row = 0; row < gridDimension; row++) {
-        for (let column = 0; column < gridDimension; column++) {
+    for (let row = 0; row < numberOfRows; row++) {
+        for (let column = 0; column < numberOfColumns; column++) {
             const cell = cells[row][column]
             const liveNeighbours = countLiveNeighbours(row, column)
             if(cell === 1 && liveNeighbours < 2) {

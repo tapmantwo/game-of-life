@@ -17,25 +17,12 @@ const createEmptyGrid = (width, height) => {
   return emptyGrid
 }
 
-// return (
-//   <>
-//   {applicants.map(function(applicant) {
-//     return (
-//       <div key={applicant.id}>
-//         <p>Applicant Name: {applicant.name}</p>
-//         <p>Applicant location: {applicant.location}</p>
-//         <p>Hackathons participated: {applicant.hackathons}</p>
-
-//       </div>
-//     )
-//   })}
-//   </>
-
 function Grid({width, height}) {
 
   
   const [game, setGame] = useState(createEmptyGrid(width, height))
-  console.log('game', game)
+  const [running, setRunning] = useState(false)
+  const [intervalId, setIntervalId] = useState(undefined)
 
   const toggle = (rowIndex, columnIndex) => {
     const current = game[rowIndex][columnIndex]
@@ -58,10 +45,34 @@ function Grid({width, height}) {
     setGame(createEmptyGrid(width,height))
   }
 
+  const toggleRun = () => {
+    setRunning(!running)
+  }
+
+  // if ( running && !intervalId ) {
+  //   const newIntervalId = setInterval(next, 250)
+  //   console.log('Set interval', newIntervalId)
+  //   setIntervalId(newIntervalId);
+  // } else if (intervalId) {
+  //   console.log('Clearing interval', intervalId)
+  //   clearInterval(intervalId)
+  //   setIntervalId(undefined);
+  // }
+
+  if (running) {
+    setTimeout(next, 250)
+  }
+
+//const myInterval = setInterval(myFunction, 1000);
+// To stop execution:
+// clearInterval(myInterval);
+
+
   return (
     <>
     <button onClick={next}>Next</button>
     <button onClick={reset}>Reset</button>
+    <button onClick={toggleRun}>{running ? "Stop" : "Run"}</button>
     <div className='grid'>
     {game.map((row, rowIndex) => {
         return (
@@ -69,7 +80,7 @@ function Grid({width, height}) {
           {row.map((cell, columnIndex) => {
             return (
             <div key={columnIndex} className='cell'>
-              <button onClick={() => toggle(rowIndex, columnIndex)} className={`cell_${cell}`}>{cell}</button>
+              <div onClick={() => toggle(rowIndex, columnIndex)} className={`cell_${cell}`}/>
             </div>
             )
           })}
@@ -86,7 +97,7 @@ function Grid({width, height}) {
 function App() {
   return (
     <div className="App">
-      <Grid width={50} height={50}/>
+      <Grid width={25} height={25}/>
     </div>
   );
 }
